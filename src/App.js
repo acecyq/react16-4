@@ -1,26 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Test from './Test';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 class App extends Component {
+  state = {
+    index : ""
+  }
+
+  inputChange = event => {
+    this.setState({ index : event.target.value });
+  }
+
+  goClick = () => {
+    console.log(this.props);
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <BrowserRouter>
+        <div>
+          <input type="text" onChange={this.inputChange} value={this.state.index}></input>
+          <Link to={`/test/${this.state.index}`}>
+            <button>Go</button>
+          </Link>
+          <Route path="/test/:id" component={Test} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
